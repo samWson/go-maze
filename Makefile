@@ -5,12 +5,13 @@ MAKEFLAGS += --no-builtin-rules
 .ONESHELL:
 .SHELLFLAGS := -eu -o pipefail -c
 .DELETE_ON_ERROR:
-.PHONY: build clean format serve test vet
+.PHONY: clean format test vet
 
+go_environment=GOOS=js GOARCH=wasm
 all_packages=
 test_packages=
 
-build: .make.main
+build: vet format main.wasm
 
 clean:
 	-rm main.wasm
@@ -18,15 +19,14 @@ clean:
 format:
 	gofmt -w main.go $(all_packages)
 
-.make.main: main.go
-	GOOS=js GOARCH=wasm go build -o main.wasm
-	touch .make.main
+main.wasm: main.go
+	$(go_environment) go build -o main.wasm
 
-serve:
+serve: main.wasm
 	goserve
 
-test: format vet
+test: vet format
 	go test $(test_packages)
 
 vet:
-	go vet main.go $(all_packages)
+	$(go_environment) go vet main.go $(all_packages)

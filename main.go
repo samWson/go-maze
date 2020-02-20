@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"syscall/js"
+)
+
+var mazeDisplay js.Value
 
 func main() {
-  fmt.Printf("Hello, world.")
+	mazeDisplay = js.Global().Get("document").Call("getElementById", "maze-display")
+	mazeDisplay.Set("innerText", "This is where the maze will be displayed. If you don't see me it's not working!")
 }

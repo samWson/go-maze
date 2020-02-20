@@ -2,6 +2,11 @@
 
 An exercise in maze generating algorithms using WebAssembly and Go.
 
+## Description
+
+This is a WebAssembly app with Go doing all the maze generation. A minimal HTML
+and JavaScript front end displays the generated mazes.
+
 ## Usage
 
 A Makefile has the tasks required for building and running the code.
@@ -17,6 +22,7 @@ $ make serve
 The make file uses the `goserve` command. This is a simple HTTP server based on
 this code [here](https://play.golang.org/p/pZ1f5pICVbV). Alternatively the [`goexec`](https://github.com/shurcooL/goexec#goexec)
 command can be installed and used to run a server instead:
+
 ```shell
 $ goexec 'http.ListenAndServe(`:8080`, http.FileServer(http.Dir(`.`)))'
 ```
