@@ -23,5 +23,5 @@ $ goexec 'http.ListenAndServe(`:8080`, http.FileServer(http.Dir(`.`)))'
 
 ## License
 
-This repository is open source software under an MIT license. The copyrights
-belong to Flux Federation Ltd.
+This repository is open source software under an MIT license. As it was made during
+our work hackdays the copyrights belong to Flux Federation Ltd.
