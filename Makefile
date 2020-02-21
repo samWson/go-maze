@@ -8,8 +8,8 @@ MAKEFLAGS += --no-builtin-rules
 .PHONY: clean format test vet
 
 go_environment=GOOS=js GOARCH=wasm
-all_packages=
-test_packages=
+all_packages=./cell ./grid
+test_packages=./grid
 
 build: vet format main.wasm
 
@@ -19,7 +19,7 @@ clean:
 format:
 	gofmt -w main.go $(all_packages)
 
-main.wasm: main.go
+main.wasm: main.go cell/cell.go grid/grid.go
 	$(go_environment) go build -o main.wasm
 
 serve: main.wasm
@@ -29,4 +29,5 @@ test: vet format
 	go test $(test_packages)
 
 vet:
-	$(go_environment) go vet main.go $(all_packages)
+	$(go_environment) go vet $(all_packages)
+	$(go_environment) go vet main.go

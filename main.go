@@ -1,13 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"github.com/samwson/go-maze/grid"
+	"image"
 	"syscall/js"
 )
 
-var mazeDisplay js.Value
+var (
+	mazeDisplay js.Value
+	maze        grid.Grid
+)
 
 func main() {
+	extent := image.Point{X: 10, Y: 10}
+	maze := grid.New(extent)
+
 	mazeDisplay = js.Global().Get("document").Call("getElementById", "maze-display")
-	mazeDisplay.Set("innerText", "This is where the maze will be displayed. If you don't see me it's not working!")
+	mazeDisplay.Set("innerText", maze.String())
 }
